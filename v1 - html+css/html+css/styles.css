@@ -1,0 +1,361 @@
+/* Estilos gerais aqui */
+
+/* Estilos para o Header */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav li {
+    margin: 0 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #ff9900;
+}
+
+/* Estilos para o Main Content index */
+.main-content-index {
+    padding: 50px;
+    text-align: center;
+    background-image: url("imagens/chanel_capa.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 60vh;
+}
+
+/*========================================================*/
+.main-content-products {
+    padding: 50px;
+    text-align: center;
+    background-image: url("imagens/marmore-fundo.jpg");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    min-height: calc(100vh - 60px); /* Ajusta a altura para excluir a altura do header */
+    overflow: hidden; /* Impede que a imagem de fundo afete os produtos */
+}
+
+/* Estilos para os produtos */
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.product {
+    background-color: rgba(200, 200, 200, 0.8); /* Background cinza semi transparente */
+    border-radius: 5px;
+    padding: 20px;
+    margin: 15px;
+    text-align: center;
+    width: 30%; /* Largura relativa aos produtos */
+    box-sizing: border-box; /* Inclui borda e padding na largura total */
+}
+
+.product img {
+    max-width: 100%;
+    height: 100%;
+    max-height: 200px; /* Altura máxima para as imagens */
+}
+
+/* Estilos para o footer */
+footer {
+    position: relative; /* Manter o footer no lugar correto */
+}
+/*========================================================*/
+
+/* Estilos para o Botão */
+.cta-button {
+    display: inline-block;
+    background-color: #b36b00;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #ff6600;
+}
+
+/* Estilos para o Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/*=====estilos do carrinho=====================*/
+
+/* Estilos para o Main Content Cart */
+.main-content-cart {
+    padding: 50px;
+    text-align: center;
+    background-color: #f2f2f2; /* Background cinza claro */
+    position: relative;
+    min-height: calc(100vh - 60px); /* Ajusta a altura para excluir a altura do header */
+    overflow: hidden; /* Impede que a imagem de fundo afete o carrinho */
+}
+
+/* Estilos para os itens do carrinho */
+.cart-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.cart-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 15px;
+    text-align: center;
+    width: 30%; /* Largura relativa aos itens do carrinho */
+    box-sizing: border-box; /* Inclui borda e padding na largura total */
+    position: relative;
+}
+
+.cart-item label {
+    display: block;
+    margin-top: 10px;
+}
+
+.cart-item input {
+    width: 40px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin-top: 5px;
+}
+
+/*==================parte das ordens==================*/
+/* Estilos para o Main Content Orders */
+.main-content-orders {
+    padding: 50px;
+    text-align: center;
+    background-color: #f9f9f9; /* Background cinza claro */
+    position: relative;
+    min-height: calc(100vh - 60px); /* Ajusta a altura para excluir a altura do header */
+}
+
+/* Estilos para os pedidos */
+.order-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.order {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 15px auto; /* Centraliza os pedidos */
+    text-align: left;
+    width: 80%; /* Largura relativa aos pedidos */
+    box-sizing: border-box; /* Inclui borda e padding na largura total */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona sombra */
+}
+
+.order h2 {
+    margin-bottom: 10px;
+    color: #b36b00; /* Cor de destaque */
+}
+
+.order p {
+    margin: 5px 0;
+}
+
+.order-items {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.order-items li {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.cart-item img {
+    max-width: 100%;
+    height: 100%;
+    max-height: 200px;
+}
+
+.cart-item button {
+    background-color: #b36b00;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cart-item button:hover {
+    background-color: #ff6600;
+}
+
+/* Estilos para o total do carrinho */
+.cart-total {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.cart-total p {
+    font-weight: bold;
+}
+
+.cart-total button {
+    background-color: #b36b00;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cart-total button:hover {
+    background-color: #ff6600;
+}
+
+/* Estilos para o footer */
+footer {
+    position: relative; /* Manter o footer no lugar correto */
+}
+
+/*=============================login abaixo=================== */
+.main-content-login {
+    padding: 50px;
+    text-align: center;
+    background-color: #f9f9f9; /* Background cinza claro */
+    position: relative;
+    min-height: calc(100vh - 60px); /* Ajusta a altura para excluir a altura do header */
+}
+
+/* Estilos para o formulário de login */
+.login-form {
+    max-width: 400px;
+    margin: 0 auto; /* Centraliza o formulário */
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Alinha o texto à esquerda */
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.login-form input {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    position: relative;
+    
+}
+
+.login-form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #b36b00;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-form button:hover {
+    background-color: #ff6600;
+}
+
+/*==========================estilo de usuario============================*/
+
+/* Estilos para o Main Content User */
+.main-content-user {
+    padding: 50px;
+    text-align: center;
+    background-color: #f9f9f9; /* Background cinza claro */
+    position: relative;
+    min-height: calc(100vh - 60px); /* Ajusta a altura para excluir a altura do header */
+}
+
+/* Estilos para as informações do usuário */
+.user-info {
+    max-width: 400px;
+    margin: 0 auto; /* Centraliza as informações */
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Alinha o texto à esquerda */
+}
+
+.user-info p {
+    margin: 5px 0;
+}
+
+/*==================================informações de contato=================================*/
+
+/* Estilos para o Main Content Contact */
+.main-content-contact {
+    padding: 50px;
+    text-align: center;
+    background-color: #f9f9f9; /* Background cinza claro */
+    position: relative;
+    min-height: calc(100vh - 60px); /* Ajusta a altura para excluir a altura do header */
+}
+
+/* Estilos para as informações de contato */
+.contact-info {
+    max-width: 400px;
+    margin: 0 auto; /* Centraliza as informações */
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Alinha o texto à esquerda */
+}
+
+.contact-info p {
+    margin: 5px 0;
+}

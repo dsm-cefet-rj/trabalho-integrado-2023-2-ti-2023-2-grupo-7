@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Carrinho - Grife Fashion</title>
+</head>
+<body>
+    <header>
+        <!-- Menu Navigation Links -->
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Produtos</a></li>
+                <li><a href="cart.html">Carrinho</a></li>
+                <li><a href="orders.html">Pedidos</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="user.html">Usuário</a></li>
+                <li><a href="contact.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Main Content -->
+    <section class="main-content-cart">
+        <h1>Seu Carrinho</h1>
+        <div class="cart-items">
+            <div class="cart-item">
+                <img src="imagens/camisa_masc_01.jpg" alt="Produto 1">
+                <h2>Camiseta Elegante</h2>
+                <p>R$ 199,99</p>
+                <label for="quantity1">Quantidade:</label>
+                <input type="number" id="quantity1" name="quantity1" min="1" value="2">
+                <button>Remover</button>
+            </div>
+            <div class="cart-item">
+                <img src="imagens/bolsa_01.jpg" alt="Produto 3">
+                <h2>Bolsa Clássica</h2>
+                <p>R$ 399,99</p>
+                <label for="quantity2">Quantidade:</label>
+                <input type="number" id="quantity2" name="quantity2" min="1" value="1">
+                <button>Remover</button>
+            </div>
+        </div>
+        <div class="cart-total">
+            <p>Total: R$ 799,97</p>
+            <button>Finalizar Compra</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Grife Fashion. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
