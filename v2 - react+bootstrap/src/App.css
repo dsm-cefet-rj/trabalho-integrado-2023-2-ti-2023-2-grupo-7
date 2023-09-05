@@ -30,6 +30,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-height: calc(100vh - 60px);
 }
 
 
@@ -167,4 +168,212 @@
   border: 1px solid #ddd;
   border-radius: 3px;
   margin-top: 5px;
+}
+
+/* Estilos de pedidos */
+
+.main-content-orders {
+  padding: 50px 0;
+  text-align: center;
+  background-color: #f2f2f2;
+  overflow: hidden; 
+  min-height: calc(100vh - 60px);
+}
+
+.order-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.order {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 15px;
+  text-align: center;
+  width: 30%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.order h2 {
+  color: #333;
+}
+
+.order-items li {
+  text-align: left;
+  margin: 5px 0;
+}
+
+.order hr {
+  margin: 10px 0;
+}
+
+.order p strong {
+  font-weight: bold;
+}
+
+.order-status {
+  width: 100px;
+  text-align: center;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+
+/* Estilo para a página de login */
+
+.main-content-login {
+  padding: 50px 0;
+  text-align: center;
+  background-color: #f2f2f2; 
+  position: relative;
+  min-height: calc(100vh - 60px);
+  overflow: hidden;
+}
+
+.login-form {
+  background-color: rgba(255, 255, 255, 0.9); 
+  border-radius: 5px;
+  padding: 20px;
+  width: 300px; 
+  margin: 0 auto; 
+}
+
+.login-form label {
+  display: block;
+  margin-top: 10px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #ff6600;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-form button:hover {
+  background-color: #b36b00;
+  ;
+}
+
+/* Estilo da página de usuário */
+
+.main-content-user {
+  padding: 50px 0;
+  text-align: center;
+  background-color: #f2f2f2; 
+  position: relative;
+  min-height: calc(100vh - 60px);
+  overflow: hidden; 
+}
+
+.user-info {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 15px auto;
+  text-align: left; 
+  width: 50%; 
+  box-sizing: border-box; 
+}
+
+
+.user-info p {
+  margin: 6px 0;
+  border: 1px solid #ddd; 
+  padding: 10px; 
+  background-color: #f9f9f9;
+}
+
+
+.user-info button {
+  background-color: #ff6600;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: block;
+  margin: 0 auto; 
+  margin-top: 10px; 
+}
+
+.user-info button:hover {
+  background-color: #b36b00;
+}
+
+.validation-errors ul {
+  list-style: none; 
+  padding: 0; 
+}
+
+.error-message {
+  color: #ff6600;
+  margin-left: 10px;
+}
+
+
+/* Estilo da pagina de contato */
+.main-content-contact {
+  display: flex; /* Torna o elemento pai um container flex */
+  justify-content: center; /* Centraliza horizontalmente o conteúdo */
+  align-items: center; /* Centraliza verticalmente o conteúdo */
+  flex-direction: column; /* Alinha o conteúdo verticalmente */
+  padding: 50px 0;
+  background-image: url("../public/contact.jpg");
+  min-height: calc(100vh - 60px);
+  overflow: hidden;
+}
+
+.contact-info {
+  text-align: left; 
+  max-width: 400px; 
+  margin: 0 auto; 
+  padding: 20px;
+  background-color: #fff; 
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+}
+
+.contact-info p {
+  margin: 10px 0;
+}
+
+.main-content-contact h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.contact-info strong {
+  font-weight: bold;
+}
+
+.custom-icon {
+  font-size: 36px; 
+  margin-right: 10px; 
+  color:#ff6600;
+}
+.custom-icon:hover{
+  color: #b36b00;
 }
