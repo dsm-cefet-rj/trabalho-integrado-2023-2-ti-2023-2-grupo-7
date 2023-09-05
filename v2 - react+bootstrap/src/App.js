@@ -9,10 +9,10 @@ import './App.css'; // Importar o CSS personalizado
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
-//import Orders from './pages/Orders';
-//import Login from './pages/Login';
-//mport User from './pages/User';
-//import Contact from './pages/Contact';
+import Orders from './pages/Orders';
+import Login from './pages/Login';
+import UserPage from './pages/UserPage';
+import ContactPage from './pages/ContactPage';
 
 //rotas de componentes:
 import Header from './components/Header';
@@ -45,10 +45,10 @@ function App() {
                   }}
                   variant="primary"
                   onMouseOver={(e) => {
-                    e.target.style.backgroundColor = "#b36b00"; // Mudança de cor ao passar o mouse
+                    e.target.style.backgroundColor = "#b36b00";
                   }}
                   onMouseOut={(e) => {
-                    e.target.style.backgroundColor = "#ff9900"; // Retorna à cor original ao tirar o mouse
+                    e.target.style.backgroundColor = "#ff9900"; 
                   }}
                 >
                   Ver Produtos
@@ -60,7 +60,10 @@ function App() {
           } />
           <Route path="/products" element={<Products />} />
           <Route path="/cart" element={<Cart />} />
-          {/* Adicione outras rotas aqui */}
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/UserPage" element={<UserPage />} />
+          <Route path="/ContactPage" element={<ContactPage />} />
         </Routes>
 
         <Footer id="footer"/>
