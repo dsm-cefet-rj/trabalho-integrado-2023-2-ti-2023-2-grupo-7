@@ -1,5 +1,5 @@
 // src/components/CartItem.js
-
+/*
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
@@ -35,6 +35,47 @@ const CartItem = ({ imageSrc, alt, title, price, quantity }) => {
                 >
                   Remover
         </Button>
+    </div>
+  );
+};
+
+export default CartItem;
+
+
+*/
+
+import React from 'react';
+import { Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { removerItemDoCarrinho, atualizarQuantidadeDoItem } from '../Actions/CartActions';
+
+const CartItem = ({ imageSrc, alt, title, price, quantity, itemId }) => {
+  const dispatch = useDispatch();
+
+  const handleRemoverItem = () => {
+    dispatch(removerItemDoCarrinho(itemId));
+  };
+
+  const handleAtualizarQuantidade = (event) => {
+    const novaQuantidade = parseInt(event.target.value);
+    dispatch(atualizarQuantidadeDoItem(itemId, novaQuantidade));
+  };
+
+  return (
+    <div className="cart-item" key={itemId}>
+      <img src={imageSrc} alt={alt} />
+      <h2>{title}</h2>
+      <p>R$ {price}</p>
+      <label htmlFor="quantity">Quantidade:</label>
+      <input
+        type="number"
+        id="quantity"
+        name="quantity"
+        min="1"
+        value={quantity}
+        onChange={handleAtualizarQuantidade}
+      />
+      <Button onClick={handleRemoverItem}>Remover</Button>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 // src/pages/Cart.js
-
+/*
 import React from 'react';
 import { Container, Button } from 'react-bootstrap';
 import CartItem from '../components/CartItem';
@@ -25,7 +25,6 @@ const Cart = () => {
               price="399,99"
               quantity={1}
             />
-            {/* Outros itens do carrinho */}
           </div>
           <div className="cart-total">
             <p>Total: R$ 799,97</p>
@@ -48,6 +47,113 @@ const Cart = () => {
           </div>
         </Container>
       </main>
+    </div>
+  );
+};
+
+export default Cart;
+
+
+
+
+import React, { useState } from 'react';
+import { Container, Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import CartItem from '../components/CartItem';
+import ThankYouMessage from '../components/ThankYouMessage';
+
+const Cart = () => {
+  const { items, total } = useSelector((state) => state.cart);
+  const [showThankYouMessage, setShowThankYouMessage] = useState(false);
+
+  const handleFinalizarCompra = () => {
+    setShowThankYouMessage(true);
+  };
+
+  return (
+    <div>
+      <main className="main-content-cart">
+        <Container>
+          <h1>Seu Carrinho</h1>
+          <div className="cart-items">
+            {items.map((item) => (
+              <CartItem
+                key={item.id}
+                imageSrc={item.imageSrc}
+                alt={item.alt}
+                title={item.title}
+                price={item.price}
+                quantity={item.quantity}
+                itemId={item.id}
+              />
+            ))}
+          </div>
+          <p className="cart-total">Total: R$ {total}</p>
+          <Button variant="primary" onClick={handleFinalizarCompra}>Finalizar Compra</Button>
+        </Container>
+      </main>
+
+      {showThankYouMessage && (
+        <div className="thank-you-overlay">
+          <div className="thank-you-message">
+            <ThankYouMessage />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Cart;
+
+
+*/
+
+
+import React, {useState} from 'react';
+import { Container, Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import CartItem from '../components/CartItem';
+import ThankYouMessage from '../components/ThankYouMessage';
+
+const Cart = () => {
+  const { items, total } = useSelector((state) => state.cart);
+  const [showThankYouMessage, setShowThankYouMessage] = useState(false);
+
+  const handleFinalizarCompra = () => {
+    setShowThankYouMessage(true);
+  };
+
+  return (
+    <div>
+      <main className="main-content-cart">
+        <Container>
+          <h1>Seu Carrinho</h1>
+          <div className="cart-items">
+            {items.map((item) => (
+              <CartItem
+                key={item.id} 
+                imageSrc={item.imageSrc}
+                alt={item.alt}
+                title={item.title}
+                price={item.price}
+                quantity={item.quantity}
+                itemId={item.id}
+              />
+            ))}
+          </div>
+          <p className="cart-total">Total: R$ {total}</p>
+          <Button variant="primary" onClick={handleFinalizarCompra}>Finalizar Compra</Button>
+        </Container>
+      </main>
+
+      {showThankYouMessage && (
+        <div className="thank-you-overlay">
+          <div className="thank-you-message">
+            <ThankYouMessage />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
