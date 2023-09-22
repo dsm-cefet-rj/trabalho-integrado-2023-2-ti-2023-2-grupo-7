@@ -157,14 +157,14 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps)(Products);
 
 
-*/
 
+*/
 
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { connect } from 'react-redux'; 
 import Product from '../components/Product';
-import { adicionarItemAoCarrinho } from '../Actions/CartActions';
+import { adicionarItemAoCarrinho } from '../Actions/CartActions'; // Certifique-se de importar a ação correta
 
 const products = [
   {
@@ -249,4 +249,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);
+
 

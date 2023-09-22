@@ -23,8 +23,10 @@ function Product({ id, imageSrc, alt, title, price, stock }) {
     const itemExistente = cart.items.find((existingItem) => existingItem.id === novoItem.id);
   
     if (itemExistente) {
+      // O item já existe no carrinho, então atualize a quantidade
       dispatch(atualizarQuantidadeDoItem(itemExistente.id, itemExistente.quantity + 1));
     } else {
+      // O item não existe no carrinho, então adicione-o
       dispatch(adicionarItemAoCarrinho(novoItem));
     }
   };

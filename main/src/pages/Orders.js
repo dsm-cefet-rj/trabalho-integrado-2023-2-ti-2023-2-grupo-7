@@ -20,15 +20,27 @@ const Orders = () => {
       items: [{ name: 'Vestido de Luxo', quantity: 1, price: 599.99 }],
       total: 599.99,
     },
+    {
+      number: '12346',
+      date: '2023-08-14',
+      status: 'Enviado',
+      items: [{ name: 'Vestido de Luxo', quantity: 1, price: 599.99 }],
+      total: 599.99,
+    },
+    
   ];
 
   return (
+<div className="page-container custom-center3">
+  <div className='text-aligns'>
+    <h1>Seus Pedidos</h1>
     <div>
-      <section className="main-content-orders">
-        <h1>Seus Pedidos</h1>
-        <OrdersList orders={orders} />
-      </section>
+      <OrdersList orders={orders} />
     </div>
+  </div>
+</div>
+
+  
   );
 }
 

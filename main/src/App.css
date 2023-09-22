@@ -131,15 +131,22 @@
   padding: 50px;
   text-align: center;
   background-color: #f2f2f2; /* Background cinza claro */
-  position: relative;
-  min-height: calc(100vh - 60px); /* Ajusta a altura para excluir a altura do header */
   overflow: hidden; /* Impede que a imagem de fundo afete o carrinho */
 }
 
+.custom-center {
+  justify-content: center;
+  min-height: calc(100vh - 120px);
+}
+.custom-center2 {
+  min-height: calc(10vh - 120px);}
+
+.custom-center3 {
+  justify-content: center;
+}
 /* Estilos para os itens do carrinho */
 .cart-items {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   margin-top: 30px;
 }
@@ -153,11 +160,10 @@
   text-align: center;
   width: 30%; /* Largura relativa aos itens do carrinho */
   box-sizing: border-box; /* Inclui borda e padding na largura total */
-  position: relative;
 }
 
 .cart-item label {
-  display: block;
+
   margin-top: 10px;
 }
 
@@ -176,17 +182,17 @@
   padding: 50px 0;
   text-align: center;
   background-color: #f2f2f2;
-  overflow: hidden; 
-  min-height: calc(100vh - 60px);
+  min-height: calc(100vh - 120px);
+  justify-content: center;
+  display: block;
 }
 
 .order-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  text-align: center;
   margin-top: 30px;
-}
+  min-width: calc(120vh);
 
+}
 .order {
   background-color: #fff;
   border: 1px solid #ddd;
@@ -194,7 +200,6 @@
   padding: 20px;
   margin: 15px;
   text-align: center;
-  width: 30%;
   box-sizing: border-box;
   position: relative;
 }
@@ -204,8 +209,9 @@
 }
 
 .order-items li {
-  text-align: left;
   margin: 5px 0;
+  list-style: none; 
+
 }
 
 .order hr {
@@ -224,6 +230,17 @@
   border-radius: 5px;
 }
 
+.page-container {
+  display: list-item;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-aligns{
+  text-align: center;
+  align-items: center;
+
+}
 
 /* Estilo para a página de login */
 
@@ -235,7 +252,6 @@
   min-height: calc(100vh - 60px);
   overflow: hidden;
 }
-
 .login-form {
   background-color: rgba(255, 255, 255, 0.9); 
   border-radius: 5px;
@@ -336,10 +352,10 @@
 
 /* Estilo da pagina de contato */
 .main-content-contact {
-  display: flex; /* Torna o elemento pai um container flex */
-  justify-content: center; /* Centraliza horizontalmente o conteúdo */
-  align-items: center; /* Centraliza verticalmente o conteúdo */
-  flex-direction: column; /* Alinha o conteúdo verticalmente */
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  flex-direction: column; 
   padding: 50px 0;
   background-image: url("../public/contact.jpg");
   min-height: calc(100vh - 60px);
@@ -377,3 +393,30 @@
 .custom-icon:hover{
   color: #b36b00;
 }
+
+
+
+
+/* ThankYouOverlay.css */
+.thank-you-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo cinza semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Z-index alto para ficar acima do conteúdo da página */
+}
+
+.thank-you-message {
+  background-color: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+

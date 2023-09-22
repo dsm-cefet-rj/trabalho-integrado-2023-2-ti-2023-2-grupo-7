@@ -125,37 +125,50 @@ const Cart = () => {
   };
 
   return (
-    <div>
-      <main className="main-content-cart">
-        <Container>
-          <h1>Seu Carrinho</h1>
-          <div className="cart-items">
-            {items.map((item) => (
-              <CartItem
-                key={item.id} 
-                imageSrc={item.imageSrc}
+<div>
+  <main className="main-content-cart">
+    <Container className="mx-auto custom-center">
+      <h1>Seu Carrinho</h1>
+      <div className="row custom-center3">
+        {items.map((item) => (
+          <div className="col-md-3 mb-4" key={item.id}>
+            <div className="card h-100">
+              <img
+                src={item.imageSrc}
                 alt={item.alt}
-                title={item.title}
-                price={item.price}
-                quantity={item.quantity}
-                itemId={item.id}
-              />
-            ))}
-          </div>
-          <p className="cart-total">Total: R$ {total}</p>
-          <Button variant="primary" onClick={handleFinalizarCompra}>Finalizar Compra</Button>
-        </Container>
-      </main>
 
-      {showThankYouMessage && (
-        <div className="thank-you-overlay">
-          <div className="thank-you-message">
-            <ThankYouMessage />
+              />
+              <div className="card-body">
+                <h5 className="card-title">{item.title}</h5>
+                <p className="card-text">Price: R$ {item.price}</p>
+                <p className="card-text">Quantity: {item.quantity}</p>
+              </div>
+            </div>
           </div>
-        </div>
-      )}
+        ))}
+        <div className="custom-center2" ></div>
+      </div>
+      <p className="cart-total">Total: R$ {total}</p>
+      <button
+        className="btn btn-primary"
+        onClick={handleFinalizarCompra}
+      >
+        Finalizar Compra
+      </button>
+    </Container>
+  </main>
+
+  {showThankYouMessage && (
+    <div className="thank-you-overlay">
+      <div className="thank-you-message">
+        <ThankYouMessage />
+      </div>
     </div>
-  );
+  )}
+</div>
+
+
+  );  
 };
 
 export default Cart;

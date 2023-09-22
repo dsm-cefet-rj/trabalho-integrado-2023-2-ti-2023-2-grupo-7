@@ -17,7 +17,7 @@ const initialState = {
       quantity: 1,
     },
   ],
-  total: 1199.98,
+  total: 1399.97,
 };
 
 const cartReducer = (state = initialState, action) => {

@@ -1,0 +1,20 @@
+{
+    "products": [
+  {
+    "id": 1,
+    "imageSrc": "/imagens/camisa_masc_01.jpg",
+    "alt": "Produto 1",
+    "title": "Camisa de Praia",
+    "price": "549.99",
+    "stock": "1"
+  },
+  {
+    "id": 2,
+    "imageSrc": "/imagens/camisa_masc_02.jpg",
+    "alt": "Produto 1",
+    "title": "Camisa de Praia",
+    "price": "549.99",
+    "stock": "1"
+  }
+]
+  }
