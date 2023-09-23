@@ -152,6 +152,22 @@ const Cart = () => {
       <button
         className="btn btn-primary"
         onClick={handleFinalizarCompra}
+        style={{
+          display: "inline-block",
+          backgroundColor: "#ff9900",
+          color: "#fff",
+          padding: "10px 20px",
+          borderRadius: "5px",
+          textDecoration: "none",
+          transition: "background-color 0.3s",
+        }}
+        variant="primary"
+        onMouseOver={(e) => {
+          e.target.style.backgroundColor = "#b36b00";
+        }}
+        onMouseOut={(e) => {
+          e.target.style.backgroundColor = "#ff9900"; 
+        }}
       >
         Finalizar Compra
       </button>
