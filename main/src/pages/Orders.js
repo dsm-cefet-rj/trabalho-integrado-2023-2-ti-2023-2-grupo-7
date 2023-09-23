@@ -35,12 +35,20 @@ const Orders = () => {
     setOrders(updatedOrders);
   };
 
+  // Função para atualizar o status de um pedido
+  const updateOrderStatus = (orderNumber, newStatus) => {
+    const updatedOrders = orders.map((order) =>
+      order.number === orderNumber ? { ...order, status: newStatus } : order
+    );
+    setOrders(updatedOrders);
+  };
+
   return (
     <div className="page-container custom-center3">
       <div className='text-aligns'>
         <h1>Seus Pedidos</h1>
         <div>
-          <OrdersList orders={orders} removeOrder={removeOrder} />
+          <OrdersList orders={orders} removeOrder={removeOrder} updateOrderStatus={updateOrderStatus} />
         </div>
       </div>
     </div>
