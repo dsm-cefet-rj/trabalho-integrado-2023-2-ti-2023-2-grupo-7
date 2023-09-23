@@ -14,7 +14,9 @@ const OrderItem = ({ order }) => {
         ))}
       </ul>
       <hr />
+      <div className='order-total'>
       <p><strong>Total do Pedido:</strong> R$ {order.total}</p>
+      </div>
     </div>
   );
 }
