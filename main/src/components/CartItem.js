@@ -44,7 +44,7 @@ export default CartItem;
 
 */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { removerItemDoCarrinho, atualizarQuantidadeDoItem } from '../Actions/CartActions';
@@ -56,28 +56,68 @@ const CartItem = ({ imageSrc, alt, title, price, quantity, itemId }) => {
     dispatch(removerItemDoCarrinho(itemId));
   };
 
-  const handleAtualizarQuantidade = (event) => {
-    const novaQuantidade = parseInt(event.target.value);
-    dispatch(atualizarQuantidadeDoItem(itemId, novaQuantidade));
+  const [novaQuantidade, setNovaQuantidade] = useState(quantity);
+
+  const handleNovaQuantidadeChange = (e) => {
+    const newQuantity = parseInt(e.target.value);
+    setNovaQuantidade(newQuantity);
+  
+    // Aqui você pode despachar a ação para atualizar a quantidade diretamente,
+    // caso necessário.
+    dispatch(atualizarQuantidadeDoItem(itemId, newQuantity));
   };
 
   return (
-    <div className="cart-item" key={itemId}>
-      <img src={imageSrc} alt={alt} />
-      <h2>{title}</h2>
-      <p>R$ {price}</p>
-      <label htmlFor="quantity">Quantidade:</label>
+<div className='row justify-content-center'>
+<div className='cart-items'>
+<div>
+  <div   className='cart-item'>
+    <img src={imageSrc} alt={alt} />
+  </div>
+  <div className='row'>
+    <div className="card-body">
+      <h2 className="card-title">{title}</h2>
+      <p className="card-text">R$ {price}</p>
+      <label className="card-text" htmlFor="quantity">Quantidade:</label>
       <input
         type="number"
         id="quantity"
         name="quantity"
         min="1"
-        value={quantity}
-        onChange={handleAtualizarQuantidade}
+        value={novaQuantidade}
+        onChange={handleNovaQuantidadeChange}
       />
-      <Button onClick={handleRemoverItem}>Remover</Button>
+      </div>
     </div>
+    <Button className='button-orange' onClick={handleRemoverItem}>Remover</Button>
+
+  </div>
+</div>
+</div>
   );
 };
 
 export default CartItem;
+/*
+
+        <div className="card h-100"></div>
+
+
+{items.map((item) => (
+  <div className="col-md-3 mb-4" key={item.id}>
+    <div className="card h-100">
+      <img
+        src={item.imageSrc}
+        alt={item.alt}
+
+      />
+      <div className="card-body">
+        <h5 className="card-title">{item.title}</h5>
+        <p className="card-text">Price: R$ {item.price}</p>
+        <p className="card-text">Quantity: {item.quantity}</p>
+      </div>
+    </div>
+  </div>
+))}
+
+*/

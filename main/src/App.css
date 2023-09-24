@@ -151,16 +151,17 @@
   display: flex;
   justify-content: center;
   margin-top: 30px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+
 }
 
 .cart-item {
   background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
   padding: 20px;
   margin: 15px;
   text-align: center;
-  width: 30%; /* Largura relativa aos itens do carrinho */
   box-sizing: border-box; /* Inclui borda e padding na largura total */
 }
 
@@ -434,4 +435,20 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
+/*//////////////////////////////////*/
+.button-orange {
+  background-color: orange; /* Cor de fundo laranja */
+  color: white; /* Cor do texto branco */
+  padding: 10px 20px; /* Espaçamento interno do botão */
+  border: none; /* Remove a borda do botão */
+  border-radius: 5px; /* Cantos arredondados */
+  cursor: pointer; /* Mostra um cursor de mão ao passar o mouse */
+  margin-top: 10px;
+  margin-bottom: 10px;
 
+}
+
+/* Estilos adicionais para hover (quando o mouse passa sobre o botão) */
+.button-orange:hover {
+  background-color: darkorange; /* Cor de fundo laranja mais escura no hover */
+}
