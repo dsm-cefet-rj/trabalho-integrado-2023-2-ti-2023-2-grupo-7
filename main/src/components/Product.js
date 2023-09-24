@@ -1,12 +1,13 @@
 // src/components/Product.js
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'; 
 import { adicionarItemAoCarrinho } from '../Actions/CartActions';
 import { atualizarQuantidadeDoItem } from '../Actions/CartActions'; 
 
 function Product({ id, imageSrc, alt, title, price, stock }) {
+  const [quantity = 1, setQuantity] = useState(); // Estado local para a quantidade
 
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
@@ -18,7 +19,9 @@ function Product({ id, imageSrc, alt, title, price, stock }) {
       alt,
       title,
       price,
-      quantity: 1, // Defina a quantidade como 1 ao criar um novo item
+      quantity: 1,       // Defina a quantidade como 1 ao criar um novo item
+      stock: stock -1,
+
     };
     const itemExistente = cart.items.find((existingItem) => existingItem.id === novoItem.id);
   
@@ -30,14 +33,54 @@ function Product({ id, imageSrc, alt, title, price, stock }) {
       dispatch(adicionarItemAoCarrinho(novoItem));
     }
   };
-  
+
+  const [inputBloqueado, setInputBloqueado] = useState(false);
+    var i = 0;
+  const bloquearInput = () => {
+
+    if (i === 1){
+    setInputBloqueado(false);
+      i=0;
+  } else{
+    setInputBloqueado(true);
+      ++i;
+  }
+  };
+
+
 
   return (
     <div className="product">
       <img src={imageSrc} alt={alt} />
       <div className='product_description'>
         <h2>{title}</h2>
-        <p>R$ {price} / Em estoque: {stock} </p>
+        <p>R$ {price} / Em estoque: {stock = quantity} </p>
+        <input
+          type="number"
+          min="1"
+          max={99}
+          value={quantity}
+          disabled={inputBloqueado}
+          onChange={(e) => setQuantity(parseInt(e.target.value))}
+        />
+        <Button
+                  style={{
+                  display: "inline-block",
+                  backgroundColor: "#fede00",
+                  color: "#00000",
+                  textDecoration: "none",
+                  transition: "background-color 0.3s",
+                  }}
+                  variant="primary"
+                  onMouseOver={(e) => {
+                  e.target.style.backgroundColor = "darkblue"; 
+                  }}
+                  onMouseOut={(e) => {
+                  e.target.style.backgroundColor = "#fede00";
+                  }}
+                  onClick={bloquearInput}
+        >Atualizar Estoque</Button>
+
         <Button
                   style={{
                     display: "inline-block",

@@ -452,3 +452,7 @@
 .button-orange:hover {
   background-color: darkorange; /* Cor de fundo laranja mais escura no hover */
 }
+
+.marginTop{
+  margin-top: 30px;
+}

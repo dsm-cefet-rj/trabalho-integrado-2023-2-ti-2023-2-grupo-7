@@ -111,7 +111,7 @@ export default Cart;
 
 
 import React, {useState} from 'react';
-import { Container, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import CartItem from '../components/CartItem';
 import ThankYouMessage from '../components/ThankYouMessage';
