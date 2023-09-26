@@ -1,6 +1,5 @@
 import React from 'react';
-import { FaWhatsapp, FaFacebook, FaInstagram } from 'react-icons/fa'; // Importe os ícones desejados
-
+import { FaWhatsapp, FaFacebook, FaInstagram } from 'react-icons/fa'; 
 function ContactPage() {
   return (
     <div>

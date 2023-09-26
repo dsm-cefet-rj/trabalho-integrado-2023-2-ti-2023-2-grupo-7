@@ -1,11 +1,8 @@
-// src/App.js
-
 import React from 'react';
 import { Container, Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Importar estilos do Bootstrap
-import './App.css'; // Importar o CSS personalizado
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
-//rotas de páginas:
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
@@ -14,12 +11,10 @@ import Login from './pages/Login';
 import UserPage from './pages/UserPage';
 import ContactPage from './pages/ContactPage';
 
-//rotas de componentes:
 import Header from './components/Header';
 import Footer from './components/Footer';
 
 
-// início do app ===============================================================
 function App() {
   return (
     <Router>

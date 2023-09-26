@@ -5,16 +5,24 @@
     "imageSrc": "/imagens/camisa_masc_01.jpg",
     "alt": "Produto 1",
     "title": "Camisa de Praia",
-    "price": "549.99",
+    "price": "599.99",
     "stock": "1"
   },
   {
     "id": 2,
     "imageSrc": "/imagens/camisa_masc_02.jpg",
-    "alt": "Produto 1",
+    "alt": "Produto 2",
     "title": "Camisa de Praia",
     "price": "549.99",
     "stock": "1"
+  },
+  {
+    "id": 6,
+    "imageSrc":"/imagens/vestido_01.jpg",
+    "alt": "Produto 6",
+    "title": "Vestido Luxuoso",
+    "price": "9999,99",
+    "stock": "2"
   }
 ]
   }

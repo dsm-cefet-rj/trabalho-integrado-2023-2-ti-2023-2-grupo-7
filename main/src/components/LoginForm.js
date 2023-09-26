@@ -19,7 +19,7 @@ function LoginForm() {
     <form className="login-form" onSubmit={handleSubmit}>
       <label htmlFor="email">Email:</label>
       <input type="email" id="email" name="email" value={email} onChange={handleEmailChange} required />
-      <span className="error-message">{emailError}</span> {/* Adicione a classe "error-message" aqui */}
+      <span className="error-message">{emailError}</span> 
       <label htmlFor="password">Senha:</label>
       <input type="password" id="password" name="password" minLength="8" required />
       <button type="submit">Entrar</button>

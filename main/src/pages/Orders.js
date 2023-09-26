@@ -29,13 +29,11 @@ const Orders = () => {
     },
   ]);
 
-  // Função para remover um pedido pelo número
   const removeOrder = (orderNumber) => {
     const updatedOrders = orders.filter((order) => order.number !== orderNumber);
     setOrders(updatedOrders);
   };
 
-  // Função para atualizar o status de um pedido
   const updateOrderStatus = (orderNumber, newStatus) => {
     const updatedOrders = orders.map((order) =>
       order.number === orderNumber ? { ...order, status: newStatus } : order

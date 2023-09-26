@@ -10,7 +10,7 @@ function UserForm({ userInfo, isEditing, validationErrors, handleInputChange, sa
         {isEditing ? (
           <>
             <input type="text" name="cpf" value={userInfo.cpf} onChange={handleInputChange} />
-            <span className="error-message">{validationErrors.cpf}</span> {/* Corrigido para usar a classe "error-message" */}
+            <span className="error-message">{validationErrors.cpf}</span> 
           </>
         ) : (
           userInfo.cpf
@@ -21,7 +21,7 @@ function UserForm({ userInfo, isEditing, validationErrors, handleInputChange, sa
         {isEditing ? (
           <>
             <input type="email" name="email" value={userInfo.email} onChange={handleInputChange} />
-            <span className="error-message">{validationErrors.email}</span> {/* Corrigido para usar a classe "error-message" */}
+            <span className="error-message">{validationErrors.email}</span>
           </>
         ) : (
           userInfo.email
@@ -36,7 +36,7 @@ function UserForm({ userInfo, isEditing, validationErrors, handleInputChange, sa
         {isEditing ? (
           <>
             <input type="text" name="cep" value={userInfo.cep} onChange={handleInputChange} />
-            <span className="error-message">{validationErrors.cep}</span> {/* Corrigido para usar a classe "error-message" */}
+            <span className="error-message">{validationErrors.cep}</span> 
           </>
         ) : (
           userInfo.cep
