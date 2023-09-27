@@ -50,16 +50,25 @@ const cartReducer = (state = initialState, action) => {
         };
       }
 
-    case 'REMOVER_ITEM':
-      const itemIdToRemove = action.payload;
-      const itemToRemove = state.items.find((item) => item.id === itemIdToRemove);
-      const updatedItems = state.items.filter((item) => item.id !== itemIdToRemove);
-      const updatedTotal = state.total - parseFloat(itemToRemove.price) * itemToRemove.quantity;
-      return {
-        ...state,
-        items: updatedItems,
-        total: updatedTotal.toFixed(2),
-      };
+      case 'REMOVER_ITEM':
+        const itemIdToRemove = action.payload;
+        const itemToRemove = state.items.find((item) => item.id === itemIdToRemove);
+      
+        if (!itemToRemove) {
+          return {
+            ...state,
+            items: state.items.filter((item) => item.id !== itemIdToRemove),
+          };
+        }
+      
+        const updatedItems = state.items.filter((item) => item.id !== itemIdToRemove);
+        const updatedTotal = state.total - parseFloat(itemToRemove.price) * itemToRemove.quantity;
+        return {
+          ...state,
+          items: updatedItems,
+          total: updatedTotal.toFixed(2),
+        };
+      
 
     case 'ALTERAR_QUANTIDADE_DO_ITEM':
       const { itemId_Q, newQuantity } = action.payload;
