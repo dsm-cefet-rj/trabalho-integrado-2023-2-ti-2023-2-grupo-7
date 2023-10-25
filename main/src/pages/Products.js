@@ -1,18 +1,18 @@
-
 import React, { useState, useEffect } from 'react';
 import { Container, Button, Modal, Form } from 'react-bootstrap';
 import { useDispatch, connect } from 'react-redux';
 import Product from '../components/Product';
 import { adicionarItemAoCarrinho } from '../Actions/CartActions';
 import { removerItemDoCarrinho } from '../Actions/CartActions';
-import dbData from '../db.json';
+import api from '../api/api';
+import ProductEditModal from '../modal_edit/ProductEditModal'
+
 
 function Products({ cart, adicionarItemAoCarrinho }) {
-    const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [newProduct, setNewProduct] = useState({
-    id: products.length + 1,
     imageSrc: '',
     alt: '',
     title: '',
@@ -20,12 +20,22 @@ function Products({ cart, adicionarItemAoCarrinho }) {
     stock: '',
   });
 
+  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null);
+
 
 
   useEffect(() => {
-    setProducts(dbData.products);
-  }, []); 
-
+    async function fetchData() {
+      try {
+        const response = await api.get("/products");
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar os produtos:', error);
+      }
+    }
+    fetchData();
+  }, []);
 
   const handleShowModal = () => {
     setShowModal(true);
@@ -35,30 +45,99 @@ function Products({ cart, adicionarItemAoCarrinho }) {
     setShowModal(false);
   };
 
+  const handleAddNewProduct = async () => {
+    if (
+      newProduct.imageSrc &&
+      newProduct.alt &&
+      newProduct.title &&
+      newProduct.price &&
+      newProduct.stock
+    ) {
+      const numericPrice = parseFloat(newProduct.price);
+      const numericStock = parseInt(newProduct.stock, 10);
 
-  const handleAddNewProduct = () => {
-    if (newProduct.imageSrc && newProduct.alt && newProduct.title && newProduct.price && newProduct.stock) {
-      products.push(newProduct);
-      setNewProduct({
-        id: products.length + 1,
-        imageSrc: '',
-        alt: '',
-        title: '',
-        price: '',
-        stock: '',
-      });
-      setShowModal(false);
+      if (!isNaN(numericPrice) && !isNaN(numericStock)) {
+        const productToAdd = {
+          imageSrc: newProduct.imageSrc,
+          alt: newProduct.alt,
+          title: newProduct.title,
+          price: numericPrice,
+          stock: numericStock,
+        };
+
+        try {
+          const response = await api.post('/products', productToAdd, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          console.log('Novo produto adicionado:', response.data);
+
+          setNewProduct({
+            imageSrc: '',
+            alt: '',
+            title: '',
+            price: '',
+            stock: '',
+          });
+
+          setShowModal(false);
+        } catch (error) {
+          console.error('Erro ao adicionar novo produto:', error);
+        }
+      } else {
+        console.error('Price ou stock não são números válidos.');
+      }
     }
   };
 
-  const handleDeleteProduct = (productId) => {
-    const updatedProducts = products.filter((product) => product.id !== productId);
-    products.length = 0;
-    Array.prototype.push.apply(products, updatedProducts);
-
-    dispatch(removerItemDoCarrinho(productId));
+  const handleDeleteProduct = async (productId) => {
+    try {
+      await api.delete(`/products/${productId}`);
+      const updatedProducts = products.filter((product) => product._id !== productId);
+      setProducts(updatedProducts);
+    } catch (error) {
+      console.error(`Erro ao excluir o produto com ID ${productId}:`, error);
+    }
   };
 
+  const handleOpenEditModal = (product) => {
+    setEditingProduct(product);
+    setEditModalVisible(true);
+  };
+  
+  const handleCloseEditModal = () => {
+    setEditingProduct(null);
+    setEditModalVisible(false);
+  };
+  
+  const handleUpdateProduct = async (updatedProduct) => {
+    if (updatedProduct) {
+      try {
+        const response = await api.put(`/products/${updatedProduct._id}`, updatedProduct, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        // Certifique-se de que a resposta da API contenha as informações atualizadas
+        const updatedProductData = response.data;
+  
+        // Atualize a lista de produtos no estado do cliente (frontend)
+        const updatedProducts = products.map((product) =>
+          product._id === updatedProductData._id ? updatedProductData : product
+        );
+  
+        setProducts(updatedProducts);
+  
+        // Feche o modal de edição
+        handleCloseEditModal();
+      } catch (error) {
+        console.error('Erro ao atualizar o produto:', error);
+      }
+    }
+  };
+    
 
   return (
     <div className="main-content-products">
@@ -66,24 +145,33 @@ function Products({ cart, adicionarItemAoCarrinho }) {
         <h1>Produtos de Grife</h1>
         <div className="product-list">
           {products.map((product) => (
-            <div key={product.id} className="product-item">
-            <Product
-              id={product.id}
-              imageSrc={product.imageSrc}
-              alt={product.alt}
-              title={product.title}
-              price={product.price}
-              stock={product.stock}
-              addToCart={() => adicionarItemAoCarrinho(product)}
-            />
+            <div key={product._id} className="product-item">
+              <Product
+                id={product._id}
+                imageSrc={product.imageSrc}
+                alt={product.alt}
+                title={product.title}
+                price={product.price}
+                stock={product.stock}
+                addToCart={() => adicionarItemAoCarrinho(product)}
+              />
               <Button
                 variant="danger"
-                onClick={() => handleDeleteProduct(product.id)}
-              >Excluir Produto
+                onClick={() => handleDeleteProduct(product._id)}
+              >
+                Excluir Produto
               </Button>
-          </div>
-          ))}
 
+                <Button
+                  variant="primary"
+                  onClick={() => handleOpenEditModal(product)}>
+                
+                  Atualizar Item
+                </Button>
+
+            </div>
+          ))}
+        </div>
         <Modal show={showModal} onHide={handleCloseModal}>
           <Modal.Header closeButton>
             <Modal.Title>Inserir Novo Produto</Modal.Title>
@@ -147,14 +235,18 @@ function Products({ cart, adicionarItemAoCarrinho }) {
           </Modal.Footer>
         </Modal>
 
+        <ProductEditModal
+          product={editingProduct}
+          editModalVisible={editModalVisible}
+          handleCloseEditModal={handleCloseEditModal}
+          onUpdate={handleUpdateProduct}
+        />
 
-        
-        </div>
+
         <div>
-          <Button variant="success" className='marginTop' onClick={handleShowModal}>
-          Inserir Novo Produto
-        </Button>
-
+          <Button variant="success" className="marginTop" onClick={handleShowModal}>
+            Inserir Novo Produto
+          </Button>
         </div>
       </Container>
     </div>
@@ -170,5 +262,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);
-
-

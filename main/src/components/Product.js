@@ -30,52 +30,13 @@ function Product({ id, imageSrc, alt, title, price, stock }) {
     }
   };
 
-  const [inputBloqueado, setInputBloqueado] = useState(false);
-    var i = 0;
-  const bloquearInput = () => {
-
-    if (i === 1){
-    setInputBloqueado(false);
-      i=0;
-  } else{
-    setInputBloqueado(true);
-      ++i;
-  }
-  };
-
-
-
+  
   return (
     <div className="product">
       <img src={imageSrc} alt={alt} />
       <div className='product_description'>
         <h2>{title}</h2>
-        <p>R$ {price} / Em estoque: {stock = quantity} </p>
-        <input
-          type="number"
-          min="1"
-          max={99}
-          value={quantity}
-          disabled={inputBloqueado}
-          onChange={(e) => setQuantity(parseInt(e.target.value))}
-        />
-        <Button
-                  style={{
-                  display: "inline-block",
-                  backgroundColor: "#fede00",
-                  color: "#00000",
-                  textDecoration: "none",
-                  transition: "background-color 0.3s",
-                  }}
-                  variant="primary"
-                  onMouseOver={(e) => {
-                  e.target.style.backgroundColor = "darkblue"; 
-                  }}
-                  onMouseOut={(e) => {
-                  e.target.style.backgroundColor = "#fede00";
-                  }}
-                  onClick={bloquearInput}
-        >Atualizar Estoque</Button>
+        <p>R$ {price} / Em estoque: {stock} </p>
 
         <Button
                   style={{
