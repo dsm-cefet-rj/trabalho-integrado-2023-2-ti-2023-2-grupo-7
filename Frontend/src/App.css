@@ -456,3 +456,52 @@
 .marginTop{
   margin-top: 30px;
 }
+
+/* Estilos para o modal */
+.Modal {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.Modal-content {
+  background-image:'marmore-fundo.jpg';
+  background-size: cover;
+  border: none;
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Modal h2 {
+  color: #fff;
+}
+
+.Modal p {
+  color: #ff0000; /* Cor para mensagens de erro */
+}
+
+.Modal input {
+  margin: 5px 0;
+  padding: 5px;
+  border: none;
+}
+
+.Modal select {
+  margin: 5px 0;
+  padding: 5px;
+  border: none;
+}
+
+.Modal button {
+  margin: 10px 0;
+  background-color: #007bff; /* Cor de fundo do botão */
+  color: #fff; /* Cor do texto do botão */
+  border: none;
+  cursor: pointer;
+}
+
+.Modal button:hover {
+  background-color: #0056b3; /* Cor de fundo do botão no hover */
+}

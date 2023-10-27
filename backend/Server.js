@@ -1,5 +1,6 @@
 const cartRoutes = require('./Routes/cartRoutes');
 const productRoutes = require('./Routes/ProductsRoutes');
+const UserRoutes = require('./Routes/UserRoutes');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -9,15 +10,15 @@ const cors = require("cors");
 
 app.use(cors({origin: '*', credentials: false}));
 
-// Apply bodyParser middleware before defining routes
-app.use(bodyParser.json()); // Parse JSON requests
-app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded requests
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 mongoose.connect('mongodb+srv://user:user@cluster0.mehdhep.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true });
 
-// Define your routes after applying middleware
 app.use('/api', cartRoutes); 
 app.use('/', productRoutes);
+app.use('/', UserRoutes);
+
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);

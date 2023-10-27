@@ -21,7 +21,7 @@ function LoginForm() {
       <input type="email" id="email" name="email" value={email} onChange={handleEmailChange} required />
       <span className="error-message">{emailError}</span> 
       <label htmlFor="password">Senha:</label>
-      <input type="password" id="password" name="password" minLength="8" required />
+      <input type="password" id="password" name="password" required />
       <button type="submit">Entrar</button>
     </form>
   );
