@@ -7,11 +7,12 @@ import { removerItemDoCarrinho } from '../Actions/CartActions';
 import api from '../api/api';
 import ProductEditModal from '../modal_edit/ProductEditModal'
 
-
 function Products({ cart, adicionarItemAoCarrinho }) {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+
+
   const [newProduct, setNewProduct] = useState({
     imageSrc: '',
     alt: '',
@@ -22,7 +23,6 @@ function Products({ cart, adicionarItemAoCarrinho }) {
 
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
-
 
 
   useEffect(() => {
@@ -72,6 +72,13 @@ function Products({ cart, adicionarItemAoCarrinho }) {
             },
           });
           console.log('Novo produto adicionado:', response.data);
+
+          const updatedProductsResponse = await api.get('/products');
+          const updatedProducts = updatedProductsResponse.data;
+  
+          // Atualize o estado dos produtos no frontend
+          // (assumindo que 'setProducts' é a função que atualiza o estado dos produtos no componente)
+          setProducts(updatedProducts);
 
           setNewProduct({
             imageSrc: '',
