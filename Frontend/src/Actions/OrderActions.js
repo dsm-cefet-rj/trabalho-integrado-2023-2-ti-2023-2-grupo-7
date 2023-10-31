@@ -61,3 +61,24 @@ export const atualizarStatusPedido = (pedidoId, novoStatus) => {
     }
   };
 };
+
+export const buscarPedidos = () => {
+  return async (dispatch) => {
+    try {
+      const response = await api.get('/orders');
+
+      if (response.status === 200) {
+        const pedidos = response.data;
+        dispatch({
+          type: 'BUSCAR_PEDIDOS',
+          payload: pedidos,
+        });
+      } else {
+        const errorData = response.data;
+        console.error('Erro ao buscar pedidos:', errorData);
+      }
+    } catch (error) {
+      console.error('Erro ao buscar pedidos:', error);
+    }
+  };
+};
