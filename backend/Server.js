@@ -1,4 +1,4 @@
-const cartRoutes = require('./Routes/cartRoutes');
+const cartRoutes = require('./Routes/CartRoutes');
 const productRoutes = require('./Routes/ProductsRoutes');
 const UserRoutes = require('./Routes/UserRoutes');
 const express = require('express');
@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect('mongodb+srv://user:user@cluster0.mehdhep.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true });
 
-app.use('/api', cartRoutes); 
+app.use('/', cartRoutes); 
 app.use('/', productRoutes);
 app.use('/', UserRoutes);
 

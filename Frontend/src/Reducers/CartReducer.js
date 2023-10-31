@@ -1,23 +1,6 @@
 const initialState = {
-  items: [
-    {
-      id: 1,
-      imageSrc: '/imagens/camisa_masc_01.jpg',
-      alt: 'Produto 1',
-      title: 'Camiseta Social Elegante',
-      price: 199.99,
-      quantity: 2,
-    },
-    {
-      id: 3,
-      imageSrc: '/imagens/bolsa_01.jpg',
-      alt: 'Produto 3',
-      title: 'Bolsa Moderna de Couro',
-      price: 999.99,
-      quantity: 1,
-    },
-  ],
-  total: 1399.97,
+  items: [],
+  total: 0,
 };
 
 const cartReducer = (state = initialState, action) => {
