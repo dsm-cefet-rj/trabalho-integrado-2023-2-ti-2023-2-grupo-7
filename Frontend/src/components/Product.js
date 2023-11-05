@@ -21,10 +21,8 @@ function Product({ id, imageSrc, alt, title, price, stock }) {
       quantity,
     };
 
-    // Chame a função para adicionar o item ao carrinho usando a API
     adicionarItemAoCarrinho(novoItem);
     
-    // Redefina a quantidade para 1 após adicionar o item ao carrinho
     setQuantity(1);
   };
 
@@ -33,16 +31,12 @@ function Product({ id, imageSrc, alt, title, price, stock }) {
       const response = await api.post('/cart', item);
 
       if (response.status === 201) {
-        // Item adicionado com sucesso ao carrinho
-        // Você pode despachar uma ação no Redux para atualizar o estado do carrinho, se necessário
       } else {
         const errorData = response.data;
         console.error('Erro ao adicionar item ao carrinho:', errorData);
-        // Lidar com erros, se necessário
       }
     } catch (error) {
       console.error('Erro ao adicionar item ao carrinho:', error);
-      // Lidar com erros de rede, se necessário
     }
   };
   

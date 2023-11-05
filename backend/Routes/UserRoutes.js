@@ -1,20 +1,26 @@
 const express = require('express');
 const router = express.Router();
 const UserModel = require('../Models/UserModel');
+const passport = require('passport');
+const bcrypt = require('bcrypt');
 
-router.post('/login', async (req, res) => {
+router.post('/signup', async (req, res) => {
   try {
-    
     const { name, email, password, role } = req.body;
 
     if (!name || !email || !password || !role) {
       return res.status(400).json({ error: 'Todos os campos são obrigatórios' });
     }
 
-    
-    const newUser = new UserModel({ name, email, password, role });
+    const existingUser = await UserModel.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email já registrado' });
+    }
 
-    
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    const newUser = new UserModel({ name, email, password: hashedPassword, role });
     const savedUser = await newUser.save();
 
     res.status(201).json({ message: 'Usuário criado com sucesso' });

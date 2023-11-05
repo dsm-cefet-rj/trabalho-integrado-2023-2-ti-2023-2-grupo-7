@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { validateEmail } from './Validation';
+import { validateEmail, validatePassword } from './Validation';
 import api from '../api/api';
 
 function SignupModal({ isOpen, onRequestClose }) {
@@ -10,32 +10,37 @@ function SignupModal({ isOpen, onRequestClose }) {
   const [role, setRole] = useState('client');
   const [error, setError] = useState('');
 
+  const [passwordError, setPasswordError] = useState('');
+  const [emailError, setEmailError] = useState('');
 
-const handleSignup = async () => {
-  const newUser = { name, email, password, role };
-
-  try {
-    const response = await api.post('/login', newUser, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    console.log('Novo usuario adicionado:', response.data);
-    console.log('Dados do usuário a serem enviados:', newUser)
-    
-    if (response.status === 201) {
-      // Usuário criado com sucesso, você pode fechar o modal
-      onRequestClose();
-    } else {
-      const data = await response.data;
-      setError(data.error);
+  const handleSignup = async () => {
+    if (name === '' || email === '' || password === '' || role === '') {
+      setError('Todos os campos são obrigatórios');
+      return;
     }
-  } catch (error) {
-    console.error('Erro ao criar o usuário:', error);
-  }
-};
 
-  
+    if (emailError || passwordError) {
+      setError('Corrija os erros nos campos.');
+      return;
+    }
+
+    const newUser = { name, email, password, role };
+
+    try {
+      const response = await api.post('/signup', newUser);
+      console.log('Novo usuário adicionado:', response.data);
+
+      if (response.status === 201) {
+        onRequestClose();
+      } else {
+        const data = response.data;
+        setError(data.error);
+      }
+    } catch (error) {
+      console.error('Erro ao criar o usuário:', error);
+      setError('Erro ao criar o usuário');
+    }
+  };
 
   return (
     <Modal show={isOpen} onHide={onRequestClose}>
@@ -60,8 +65,12 @@ const handleSignup = async () => {
               type="email"
               placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setEmailError(validateEmail(e.target.value));
+              }}
             />
+            {emailError && <p className="text-danger">{emailError}</p>}
           </Form.Group>
           <Form.Group controlId="formPassword">
             <Form.Label>Senha</Form.Label>
@@ -69,8 +78,12 @@ const handleSignup = async () => {
               type="password"
               placeholder="Senha"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setPasswordError(validatePassword(e.target.value));
+              }}
             />
+            {passwordError && <p className="text-danger">{passwordError}</p>}
           </Form.Group>
           <Form.Group controlId="formRole">
             <Form.Label>Papel</Form.Label>

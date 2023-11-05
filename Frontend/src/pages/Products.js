@@ -76,8 +76,6 @@ function Products({ cart, adicionarItemAoCarrinho }) {
           const updatedProductsResponse = await api.get('/products');
           const updatedProducts = updatedProductsResponse.data;
   
-          // Atualize o estado dos produtos no frontend
-          // (assumindo que 'setProducts' é a função que atualiza o estado dos produtos no componente)
           setProducts(updatedProducts);
 
           setNewProduct({
@@ -127,17 +125,14 @@ function Products({ cart, adicionarItemAoCarrinho }) {
           },
         });
   
-        // Certifique-se de que a resposta da API contenha as informações atualizadas
         const updatedProductData = response.data;
   
-        // Atualize a lista de produtos no estado do cliente (frontend)
         const updatedProducts = products.map((product) =>
           product._id === updatedProductData._id ? updatedProductData : product
         );
   
         setProducts(updatedProducts);
   
-        // Feche o modal de edição
         handleCloseEditModal();
       } catch (error) {
         console.error('Erro ao atualizar o produto:', error);
