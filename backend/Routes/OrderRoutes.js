@@ -1,7 +1,9 @@
+// routes/OrderRoutes.js
 const express = require('express');
 const router = express.Router();
-const Order = require('../Models/OrderModel');
+const Order = require('../models/OrderModel');
 
+// Rota para listar todos os pedidos
 router.get('/orders', async (req, res) => {
   try {
     const orders = await Order.find();
@@ -12,16 +14,25 @@ router.get('/orders', async (req, res) => {
   }
 });
 
+// Rota para adicionar um novo pedido
 router.post('/orders', async (req, res) => {
   try {
-    // Lógica para adicionar um novo pedido//////////////
-    
+    const { number, date, status, items, total } = req.body;
+
+    if (!number || !date || !status || !items || !total) {
+      return res.status(400).json({ error: 'Campos obrigatórios ausentes' });
+    }
+
+    const newOrder = new Order({ number, date, status, items, total });
+    const savedOrder = await newOrder.save();
+    return res.status(201).json(savedOrder);
   } catch (error) {
     console.error('Erro ao adicionar um pedido:', error);
-    res.status(500).json({ error: 'Erro ao adicionar um pedido' });
+    return res.status(500).json({ error: 'Erro ao adicionar um pedido' });
   }
 });
 
+// Rota para atualizar o status do pedido
 router.put('/orders/:orderId', async (req, res) => {
   try {
     const orderId = req.params.orderId;
@@ -38,6 +49,7 @@ router.put('/orders/:orderId', async (req, res) => {
   }
 });
 
+// Rota para excluir um pedido
 router.delete('/orders/:orderId', async (req, res) => {
   try {
     const orderId = req.params.orderId;
