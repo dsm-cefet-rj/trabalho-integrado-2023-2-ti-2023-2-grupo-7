@@ -1,7 +1,7 @@
 // routes/OrderRoutes.js
 const express = require('express');
 const router = express.Router();
-const Order = require('../models/OrderModel');
+const Order = require('../Models/OrderModel');
 
 // Rota para listar todos os pedidos
 router.get('/orders', async (req, res) => {
