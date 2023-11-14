@@ -1,3 +1,4 @@
+// Nao esta mais sendo utilizada, tudo agrupado em login
 import React, { useState } from 'react';
 import UserForm from '../components/UserForm';
 import { validateCpf, validateEmail, validateCep } from '../components/Validation';

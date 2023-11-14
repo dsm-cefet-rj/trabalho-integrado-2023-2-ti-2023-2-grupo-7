@@ -17,7 +17,6 @@ function Headerf() {
             <Nav.Link as={Link} to="/cart">Carrinho</Nav.Link>
             <Nav.Link as={Link} to="/orders">Pedidos</Nav.Link>
             <Nav.Link as={Link} to="/login">Login</Nav.Link>
-            <Nav.Link as={Link} to="/userPage">Usuário</Nav.Link>
             <Nav.Link as={Link} to="/ContactPage">Contato</Nav.Link>
           </Nav>
         </Navbar.Collapse>

@@ -6,9 +6,9 @@ const bcrypt = require('bcrypt');
 
 router.post('/signup', async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, cpf, address, city, cep } = req.body;
 
-    if (!name || !email || !password || !role) {
+    if (!name || !email || !password || !role || !cpf || !address || !city || !cep) {
       return res.status(400).json({ error: 'Todos os campos são obrigatórios' });
     }
 
@@ -20,7 +20,7 @@ router.post('/signup', async (req, res) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    const newUser = new UserModel({ name, email, password: hashedPassword, role });
+    const newUser = new UserModel({ name, email, password: hashedPassword, role, cpf, address, city, cep  });
     const savedUser = await newUser.save();
 
     res.status(201).json({ message: 'Usuário criado com sucesso' });
