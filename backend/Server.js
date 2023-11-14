@@ -3,8 +3,6 @@ const productRoutes = require('./Routes/ProductsRoutes');
 const UserRoutes = require('./Routes/UserRoutes');
 const authRoutes = require('./Routes/authRoutes');
 
-const cookieParser = require('cookie-parser');
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -48,13 +46,11 @@ passport.use(new LocalStrategy(
   }
 ));
 
-app.use(cookieParser());
 app.use(
   session({
-    secret: 'ALWAYS1234567809',
+    secret: '1234', 
     resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false, maxAge: 3600000 }}
+    saveUninitialized: false,  }
 ));
 
 app.use(passport.initialize());

@@ -1,52 +1,52 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
 const UserModel = require('../Models/UserModel');
 
-router.post('/users', (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
-    if (err) {
-      console.error('Erro ao autenticar:', err);
-      return next(err);
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', { session: false }, (err, user, info) => {
+    if (err || !user) {
+      return res.status(401).json({ message: 'Falha na autenticação', user });
     }
-    if (!user) {
-      console.error('Falha na autenticação:', info.message);
-      return res.redirect('/produtos'); 
-    }
-    req.logIn(user, (err) => {
+
+    req.login(user, { session: false }, (err) => {
       if (err) {
-        console.error('Erro ao fazer login:', err);
-        return next(err);
+        res.send(err);
       }
-      console.log('Login bem-sucedido:', user);
-      return res.status(200).json({ message: 'Login bem-sucedido' });    });
+
+      const token = jwt.sign({ _id: user._id, user }, '1234');
+      return res.json({ user, token });
+    });
   })(req, res, next);
 });
 
-router.get('/users', async (req, res) => {
-  try {
-    const users = await UserModel.find({});
-
-    res.json(users);
-  } catch (err) {
-    console.error('Erro ao buscar usuários:', err);
-    res.status(500).json({ error: 'Erro ao buscar usuários' });
-  }
-});
-
 router.get('/logout', (req, res) => {
-  req.logout((err) => {
-    if (err) {
-      console.error('Erro ao fazer logout:', err);
-      res.status(500).json({ error: 'Erro ao fazer logout' });
-    } else {
-      res.status(200).json({ message: 'Logout bem-sucedido' });
-    }
-  });
+  req.logout();
+  res.json({ message: 'Logout bem-sucedido' });
 });
 
+const verifyToken = (req, res, next) => {
+  const token = req.headers['authorization'];
 
+  if (!token) {
+    return res.status(403).json({ message: 'Token não fornecido' });
+  }
 
+  jwt.verify(token, '1234', (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ message: 'Token inválido' });
+    }
 
+    req.user = decoded.user;
+    req.userId = decoded._id;
+    next();
+  });
+};
+
+router.get('/protected', verifyToken, (req, res) => {
+  const { _id,password, name, role, email, cpf, address, city, cep  } = req.user;
+  res.json({ message: 'Rota protegida acessada com sucesso', user: { _id, password, name, role, email, cpf, address, city, cep  } });
+});
 
 module.exports = router;
