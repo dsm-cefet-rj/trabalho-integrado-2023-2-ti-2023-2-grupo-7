@@ -13,6 +13,29 @@ function Products({ cart, adicionarItemAoCarrinho }) {
   const [showModal, setShowModal] = useState(false);
 
 
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+  
+    if (token) {
+      api
+        .get('http://localhost:3001/protected', {
+          headers: {
+            Authorization: token,
+          },
+        })
+        .then(response => {
+          const userRole = response.data.user.role;
+          setIsAdmin(userRole === 'admin');
+        })
+        .catch(error => {
+          console.error('Erro ao obter informações do usuário:', error);
+        });
+    }
+  }, []);
+  
+
   const [newProduct, setNewProduct] = useState({
     imageSrc: '',
     alt: '',
@@ -156,20 +179,25 @@ function Products({ cart, adicionarItemAoCarrinho }) {
                 price={product.price}
                 stock={product.stock}
                 addToCart={() => adicionarItemAoCarrinho(product)}
+                showAddToCartButton={!isAdmin}
               />
-              <Button
-                variant="danger"
-                onClick={() => handleDeleteProduct(product._id)}
-              >
-                Excluir Produto
-              </Button>
+      {isAdmin && (
+              <>
+                <Button
+                  variant="danger"
+                  onClick={() => handleDeleteProduct(product._id)}
+                >
+                  Excluir Produto
+                </Button>
 
                 <Button
                   variant="primary"
-                  onClick={() => handleOpenEditModal(product)}>
-                
+                  onClick={() => handleOpenEditModal(product)}
+                >
                   Atualizar Item
                 </Button>
+              </>
+            )}
 
             </div>
           ))}
@@ -246,9 +274,11 @@ function Products({ cart, adicionarItemAoCarrinho }) {
 
 
         <div>
+        {isAdmin && (
           <Button variant="success" className="marginTop" onClick={handleShowModal}>
             Inserir Novo Produto
           </Button>
+        )}
         </div>
       </Container>
     </div>
