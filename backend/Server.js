@@ -2,6 +2,7 @@ const cartRoutes = require('./Routes/CartRoutes');
 const productRoutes = require('./Routes/ProductsRoutes');
 const UserRoutes = require('./Routes/UserRoutes');
 const authRoutes = require('./Routes/authRoutes');
+const orderRoutes = require('./Routes/OrderRoutes');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -73,6 +74,7 @@ app.use('/', cartRoutes);
 app.use('/', productRoutes);
 app.use('/', UserRoutes);
 app.use('/', authRoutes);
+app.use('/', orderRoutes);
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
