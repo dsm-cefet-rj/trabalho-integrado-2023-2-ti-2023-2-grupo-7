@@ -1,13 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'; 
 import api from '../api/api';
-
+import LoginMessage from './Logue-se';
 
 function Product({ id, imageSrc, alt, title, price, stock }) {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-;
+
+
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [userRole, setUserRole] = useState('cliente');
+  const [isLoginMessage, SetisLoginMessage] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+  
+    if (token) {
+      api
+        .get('http://localhost:3001/protected', {
+          headers: {
+            Authorization: token,
+          },
+        })
+        .then(response => {
+          const userRole = response.data.user.role;
+          setIsAdmin(userRole === 'admin');
+          setIsLoggedIn(true);
+          setUserRole(userRole);
+        })
+        .catch(error => {
+          setIsLoggedIn(false);
+          console.error('Erro ao obter informações do usuário:', error);
+        });
+    }
+  }, []);
+
   
   const [quantity, setQuantity] = useState(1);
 
@@ -20,10 +49,15 @@ function Product({ id, imageSrc, alt, title, price, stock }) {
       price,
       quantity,
     };
+    SetisLoginMessage(true);
 
+    if(!isAdmin && userRole === 'cliente' && isLoggedIn ){
     adicionarItemAoCarrinho(novoItem);
     
     setQuantity(1);
+
+    }
+
   };
 
   const adicionarItemAoCarrinho = async (item) => {
@@ -49,6 +83,7 @@ function Product({ id, imageSrc, alt, title, price, stock }) {
         <p>R$ {price} / Em estoque: {stock} </p>
         <div className="quantity-selector">
         </div>
+        { !isAdmin && (
         <Button
           style={{
             display: "inline-block",
@@ -67,8 +102,22 @@ function Product({ id, imageSrc, alt, title, price, stock }) {
           onClick={handleAdicionarAoCarrinho}
         >
           Adicionar ao Carrinho
-        </Button>
+        </Button>        )}
+        <div>
+        { !isLoggedIn && isLoginMessage && (
+          <div>
+          <div className="thank-you-overlay">
+            <div className="thank-you-message">
+              <LoginMessage />
+            </div>
+          </div>
+          </div>
+        )}
+
+
+
       </div>
+    </div>
     </div>
   );
 }
