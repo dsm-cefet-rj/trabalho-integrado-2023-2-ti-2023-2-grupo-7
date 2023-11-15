@@ -44,7 +44,7 @@ export const removerPedido = (pedidoId) => {
 export const atualizarStatusPedido = (pedidoId, novoStatus) => {
   return async (dispatch) => {
     try {
-      const response = await api.put(`/orders/${pedidoId}`, { newStatus: novoStatus });
+      	const response = await api.put(`/orders/${pedidoId}`, { status: novoStatus });
 
       if (response.status === 200) {
         const pedidoAtualizado = response.data;
