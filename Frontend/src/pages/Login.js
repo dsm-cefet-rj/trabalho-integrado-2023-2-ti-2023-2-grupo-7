@@ -3,7 +3,6 @@ import axios from 'axios';
 import SignupModal from '../components/SignupModal';
 import UserInfo from '../components/UserForm';
 
-
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
@@ -12,8 +11,10 @@ const Login = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [showUpdateMessage, setShowUpdateMessage] = useState(false);
 
+
   useEffect(() => {
     const token = localStorage.getItem('token');
+
 
     if (token) {
       axios.get('http://localhost:3001/protected', {
@@ -30,20 +31,35 @@ const Login = () => {
     }
   }, []);
 
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+
+ 
+  const recarregarAPagina = () =>{
+    window.location.reload();
+}
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
 
     try {
       const response = await axios.post('http://localhost:3001/login', formData);
       const { user, token } = response.data;
 
+
       localStorage.setItem('token', token);
 
+
+      recarregarAPagina();
+
+
       setUser(user);
+
 
       console.log('Usuário logado:', user);
     } catch (error) {
@@ -52,16 +68,21 @@ const Login = () => {
     }
   };
 
+
   const handleSignup = (userData) => {
     console.log('Dados de cadastro:', userData);
     setSignupModalIsOpen(false);
   };
 
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     setUser(null);
-    setShowUpdateMessage(false); 
+    setShowUpdateMessage(false);
+    recarregarAPagina();
   };
+
+
 
 
 const handleSaveChanges = async (editedUser) => {
@@ -72,13 +93,13 @@ const handleSaveChanges = async (editedUser) => {
       },
     });
 
+
     const { user: updatedUser } = response.data;
     setUser(updatedUser);
     setIsEditing(false);
-
-    
+   
     if (response.data.message === 'Informações do usuário atualizadas com sucesso') {
-      setShowUpdateMessage(true); 
+      setShowUpdateMessage(true);
       console.log('Parabéns! Alterações salvas com sucesso!');
     } else {
       console.log('Ops, deu ruim! A resposta do servidor não foi a esperada.');
@@ -88,11 +109,13 @@ const handleSaveChanges = async (editedUser) => {
   }
 };
 
+
   if (user) {
     return (
       <div style={styles.container}>
        <UserInfo user={user} onSave={handleSaveChanges} isEditing={isEditing} />
       <button onClick={handleLogout} style={styles.button}>Logout</button>
+
 
       {showUpdateMessage && <p style={{ color: 'red' }}>Você fez alterações que requerem autenticação. Faça login novamente para aplicar as alterações.</p>}
     </div>
@@ -115,7 +138,7 @@ const handleSaveChanges = async (editedUser) => {
         <button type="submit" style={styles.button}>Login</button>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      
+     
       <div>
         <button onClick={() => setSignupModalIsOpen(true)} style={styles.button}>Cadastrar</button>
         <SignupModal
@@ -128,6 +151,7 @@ const handleSaveChanges = async (editedUser) => {
   );
 };
 
+
 const styles = {
   container: {
     display: 'flex',
@@ -135,7 +159,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    backgroundColor: '#f2f2f2', 
+    backgroundColor: '#f2f2f2',
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
     overflow: 'hidden',
@@ -146,31 +170,29 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(200, 200, 200, 0.8)', 
+    backgroundColor: 'rgba(200, 200, 200, 0.8)',
     padding: '20px',
     borderRadius: '5px',
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-    width: '300px', 
-    margin: '0 auto', 
+    width: '300px',
+    margin: '0 auto',
   },
   input: {
-    margin: '10px 0', 
+    margin: '10px 0',
     padding: '10px',
     borderRadius: '5px',
     border: '1px solid #ccc',
-    width: '100%', 
+    width: '100%',
   },
   button: {
-    marginTop: '15px', 
+    marginTop: '15px',
     padding: '10px 20px',
     borderRadius: '5px',
-    backgroundColor: '#b36b00', 
+    backgroundColor: '#b36b00',
     color: '#fff',
     cursor: 'pointer',
     transition: 'background-color 0.3s',
   },
 };
-
-
 
 export default Login;
