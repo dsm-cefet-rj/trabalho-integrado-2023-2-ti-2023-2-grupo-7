@@ -39,6 +39,7 @@ export const removerItemDoCarrinho = (itemId) => {
     }
   };
 };
+
 export const atualizarQuantidadeDoItem = (itemId, novaQuantidade) => {
   return async (dispatch) => {
     try {
