@@ -1,52 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import OrdersList from '../components/OrdersList';
+import api from '../api/api';
 
 const Orders = () => {
-  const [orders, setOrders] = useState([
-    {
-      number: '12345',
-      date: '2023-08-13',
-      status: 'Processando',
-      items: [
-        { name: 'Camiseta Elegante', quantity: 2, price: 199.99 },
-        { name: 'Sapatos Clássicos', quantity: 1, price: 399.99 },
-      ],
-      total: 799.97,
-    },
-    {
-      number: '12346',
-      date: '2023-08-14',
-      status: 'Enviado',
-      items: [{ name: 'Vestido de Luxo', quantity: 1, price: 599.99 }],
-      total: 599.99,
-    },
-    {
-      number: '12347',
-      date: '2023-08-15',
-      status: 'Entregue',
-      items: [{ name: 'Vestido de Luxo', quantity: 1, price: 599.99 }],
-      total: 599.99,
-    },
-  ]);
+  const [orders, setOrders] = useState([]);
 
-  const removeOrder = (orderNumber) => {
-    const updatedOrders = orders.filter((order) => order.number !== orderNumber);
-    setOrders(updatedOrders);
+  useEffect(() => {console.log(orders)
+    fetchOrderData();
+  }, []);
+
+  const fetchOrderData = async () => {
+    try {
+      const response = await api.get('/orders');
+      if (response.status === 200) {
+        setOrders(response.data);
+      }
+    } catch (error) {
+      console.error('Erro ao obter itens do pedido:', error);
+    }
   };
 
-  const updateOrderStatus = (orderNumber, newStatus) => {
-    const updatedOrders = orders.map((order) =>
-      order.number === orderNumber ? { ...order, status: newStatus } : order
-    );
-    setOrders(updatedOrders);
+  const handleRemove = async (order) => {console.log(order)
+    try {
+      const response = await api.delete(`/orders/${order._id}`);
+      if (response.status < 300) {
+        fetchOrderData();
+      }
+    } catch (error) {
+      console.error('Error removing item from the cart:', error);
+    }
   };
+
+  const updateOrderStatus = async (order,selectedStatus) => {console.log(order)
+    try {
+      order.status=selectedStatus
+      const response = await api.put(`/orders/${order._id}`,order);
+      if (response.status < 300) {
+        fetchOrderData();
+      }
+    }
+    catch (error) {
+      console.error('Error updating item from the cart:', error);
+    }
+  };
+
+
 
   return (
     <div className="page-container custom-center3">
       <div className='text-aligns'>
         <h1>Seus Pedidos</h1>
         <div>
-          <OrdersList orders={orders} removeOrder={removeOrder} updateOrderStatus={updateOrderStatus} />
+          <OrdersList orders={orders} removeOrder={handleRemove} updateOrderStatus={updateOrderStatus} />
         </div>
       </div>
     </div>
