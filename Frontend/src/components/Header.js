@@ -56,10 +56,11 @@ function Headerf() {
                 Carrinho
               </Nav.Link>
             )}
-
+            {(isLoggedIn &&
             <Nav.Link as={Link} to="/orders">
               Pedidos
             </Nav.Link>
+            )}
             <Nav.Link as={Link} to="/login">
               Login
             </Nav.Link>

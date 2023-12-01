@@ -1,6 +1,38 @@
 import React, { useState } from 'react';
+import api from '../api/api';
+import { useEffect } from 'react';
 
 const OrderItem = ({ order, removeOrder, updateOrderStatus }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+  
+    if (token) {
+      api
+        .get('http://localhost:3001/protected', {
+          headers: {
+            Authorization: token,
+          },
+        })
+        .then(response => {
+          const userRole = response.data.user.role;
+          setIsLoggedIn(true);
+          setIsAdmin(userRole === 'admin');
+        })
+        .catch(error => {
+          setIsLoggedIn(false);
+          setIsAdmin(false);
+          console.error('Erro ao verificar autenticação:', error);
+        });
+    } else {
+      setIsLoggedIn(false);
+      setIsAdmin(false);
+    }
+  }, []);
+
+
   const [selectedStatus, setSelectedStatus] = useState(order.status);
 
   const handleStatusChange = () => {
@@ -34,6 +66,8 @@ const OrderItem = ({ order, removeOrder, updateOrderStatus }) => {
       <div className='order-total'>
         <p><strong>Total do Pedido:</strong> R$ {order.total}</p>
 
+        {isLoggedIn && isAdmin && (
+          <>
         <button onClick={() => removeOrder(order)}
         style={{
           display: "inline-block",
@@ -75,7 +109,9 @@ const OrderItem = ({ order, removeOrder, updateOrderStatus }) => {
           onMouseOut={(e) => {
             e.target.style.backgroundColor = "#ff9900"; 
           }}>Alterar Status</button>
-        </div>
+        </div>    
+        </>
+        )}
       </div>
     </div>
   );
