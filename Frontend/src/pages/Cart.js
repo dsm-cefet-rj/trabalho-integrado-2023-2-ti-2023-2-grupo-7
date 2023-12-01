@@ -4,10 +4,15 @@ import CartItem from '../components/CartItem';
 import ThankYouMessage from '../components/ThankYouMessage';
 import api from '../api/api';
 
-const Cart  = () => {
+import { removerItemDoCarrinho } from '../Actions/CartActions';
+import { useDispatch, connect } from 'react-redux'
+
+const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [showThankYouMessage, setShowThankYouMessage] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchCartData();
@@ -26,12 +31,49 @@ const Cart  = () => {
     }
   };
 
+  const handleAddNewOrder = async (cartItems) => {
+    try {
+      const itemsPedido =
+        cartItems.map((Item) => ({
+          name: Item.title,
+          price: Item.price,
+          quantity: Item.quantity
+        }))
+        const orders = {
+          number:Math.floor(Math.random() * 357),
+          date:new Date(),
+          status:"Confirmado",
+          total : itemsPedido.reduce((acc, item) => acc + item.price * item.quantity, 0),
+          items : itemsPedido
+        }
+      const response = await api.post('/orders', orders);
+    } catch (error) {
+      console.error('Erro ao criar pedido: ', error)
+    }
+  };
+
+  const handleRemoveItem = async (itemId) => {
+    try {
+      const response = await api.delete(`/cart/${itemId}`);
+      if (response.status < 300) {
+        fetchCartData();
+      }
+    } catch (error) {
+      console.error('Error removing item from the cart:', error);
+    }
+  };
 
   const handleFinalizarCompra = () => {
+    handleAddNewOrder(cartItems)
+    cartItems.forEach((item) => {
+      handleRemoveItem(item._id);
+    });
+
     setShowThankYouMessage(true);
   };
 
-  
+
+
   return (
     <div className='cart-items'>
       <main className="main-content-cart">
@@ -39,9 +81,9 @@ const Cart  = () => {
           <h1>Seu Carrinho</h1>
           <div className="row custom-center3">
 
-          {cartItems.map((item) => (
-  <CartItem key={item.id} itemId={item.id} {...item}  fetchCartData={fetchCartData} total={total}   setTotal={setTotal} />
-))}
+            {cartItems.map((item) => (
+              <CartItem key={item.id} itemId={item.id} {...item} fetchCartData={fetchCartData} total={total} setTotal={setTotal} />
+            ))}
 
 
             <div className="custom-center2"></div>
@@ -82,5 +124,5 @@ const Cart  = () => {
       )}
     </div>
   );
-      }
+}
 export default Cart;
