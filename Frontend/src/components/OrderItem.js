@@ -4,7 +4,7 @@ const OrderItem = ({ order, removeOrder, updateOrderStatus }) => {
   const [selectedStatus, setSelectedStatus] = useState(order.status);
 
   const handleStatusChange = () => {
-    updateOrderStatus(order.number, selectedStatus);
+    updateOrderStatus(order, selectedStatus);
   };
 
   const handleDropdownChange = (event) => {
@@ -34,7 +34,7 @@ const OrderItem = ({ order, removeOrder, updateOrderStatus }) => {
       <div className='order-total'>
         <p><strong>Total do Pedido:</strong> R$ {order.total}</p>
 
-        <button onClick={() => removeOrder(order.number)}
+        <button onClick={() => removeOrder(order)}
         style={{
           display: "inline-block",
           backgroundColor: "#ff9900",
