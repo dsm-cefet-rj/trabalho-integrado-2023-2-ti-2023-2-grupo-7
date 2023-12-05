@@ -20,16 +20,24 @@ const Orders = () => {
     }
   };
 
-  const handleRemove = async (order) => {console.log(order)
+  const handleRemove = async (order) => {
     try {
-      const response = await api.delete(`/orders/${order._id}`);
-      if (response.status < 300) {
-        fetchOrderData();
+      const confirmed = window.confirm('Tem certeza que deseja remover este item do carrinho?');
+  
+      if (confirmed) {
+        const response = await api.delete(`/orders/${order._id}`);
+        if (response.status < 300) {
+          fetchOrderData();
+          alert('Item removido do carrinho com sucesso');
+        }
+      } else {
+        alert('Remoção cancelada');
       }
     } catch (error) {
       console.error('Error removing item from the cart:', error);
     }
   };
+  
 
   const updateOrderStatus = async (order,selectedStatus) => {console.log(order)
     try {

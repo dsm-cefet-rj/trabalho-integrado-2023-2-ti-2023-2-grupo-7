@@ -7,6 +7,7 @@ import { removerItemDoCarrinho } from '../Actions/CartActions';
 import api from '../api/api';
 import ProductEditModal from '../modal_edit/ProductEditModal'
 
+
 function Products({ cart, adicionarItemAoCarrinho }) {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
@@ -121,9 +122,16 @@ function Products({ cart, adicionarItemAoCarrinho }) {
 
   const handleDeleteProduct = async (productId) => {
     try {
-      await api.delete(`/products/${productId}`);
-      const updatedProducts = products.filter((product) => product._id !== productId);
-      setProducts(updatedProducts);
+      const confirmed = window.confirm('Tem certeza que deseja excluir este produto?');
+  
+      if (confirmed) {
+        await api.delete(`/products/${productId}`);
+        const updatedProducts = products.filter((product) => product._id !== productId);
+        setProducts(updatedProducts);
+        alert('Produto excluído com sucesso');
+      } else {
+        alert('Exclusão cancelada');
+      }
     } catch (error) {
       console.error(`Erro ao excluir o produto com ID ${productId}:`, error);
     }

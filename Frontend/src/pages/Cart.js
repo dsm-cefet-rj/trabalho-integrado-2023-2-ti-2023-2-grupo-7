@@ -53,7 +53,7 @@ const Cart = () => {
         const orders = {
           number:Math.floor(Math.random() * 357),
           date: formattedToday,
-          status:"Confirmado",
+          status:"Processando",
           total : itemsPedido.reduce((acc, item) => acc + item.price * item.quantity, 0),
           items : itemsPedido
         }
